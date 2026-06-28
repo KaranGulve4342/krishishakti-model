@@ -1,0 +1,8 @@
+{
+    "Autumn": 0,
+    "Kharif": 1,
+    "Rabi": 2,
+    "Summer": 3,
+    "Whole Year": 4,
+    "Winter": 5
+}

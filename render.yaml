@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: krishishakti-ml-api
+    env: docker
+    plan: pro        # yield_model.pkl needs ~4GB RAM to load safely
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FIREBASE_CREDENTIALS
+        sync: false  # Set manually in Render dashboard
+      - key: FIREBASE_DB_URL
+        sync: false
+      - key: HF_TOKEN
+        sync: false  # Required if your HF bucket is private

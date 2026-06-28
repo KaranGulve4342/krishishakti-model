@@ -1,0 +1,9 @@
+.git/
+*.log
+myenv/
+models/
+yield_model.pkl
+__pycache__/
+*.pyc
+.env
+firebaseCredentials.json

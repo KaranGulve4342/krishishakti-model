@@ -1,0 +1,13 @@
+.env
+myenv/
+__pycache__/
+*.pyc
+
+# Large model files — stored externally (HF bucket / cloud storage)
+*.pkl
+*.pth
+*.h5
+models/
+
+# Firebase credentials
+firebaseCredentials.json
