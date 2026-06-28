@@ -3,7 +3,7 @@ myenv/
 __pycache__/
 *.pyc
 
-# Large model files — stored externally (HF bucket / cloud storage)
+# All binary model files — downloaded from HF bucket at startup
 *.pkl
 *.pth
 *.h5
