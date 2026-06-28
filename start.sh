@@ -11,4 +11,4 @@ print('Download complete.')
 "
 fi
 
-exec uvicorn app:app --host 0.0.0.0 --port 8080
+exec uvicorn app:app --host 0.0.0.0 --port 7860

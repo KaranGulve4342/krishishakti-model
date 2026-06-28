@@ -15,6 +15,6 @@ COPY . /app
 
 RUN chmod +x /app/start.sh
 
-EXPOSE 8080
+EXPOSE 7860
 
 ENTRYPOINT ["/app/start.sh"]
