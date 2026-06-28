@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Install curl + hf CLI (needed for HF Bucket downloads)
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
-RUN curl -LsSf https://hf.co/cli/install.sh | sh
+RUN curl -LsSf https://hf.co/cli/install.sh | bash
 ENV PATH="/root/.local/bin:$PATH"
 
 # Copy requirements.txt first to leverage Docker caching
