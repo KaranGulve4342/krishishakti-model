@@ -1,19 +1,30 @@
 #!/bin/bash
 set -e
 
-# Download model files from HF bucket if not already present
-NEED_DOWNLOAD=false
-[ ! -f "/app/yield_model.pkl" ] && NEED_DOWNLOAD=true
-[ ! -f "/app/crop_model.pkl" ] && NEED_DOWNLOAD=true
-[ ! -f "/app/plant_disease_model.pth" ] && NEED_DOWNLOAD=true
+REQUIRED_FILES=("yield_model.pkl" "crop_model.pkl" "plant_disease_model.pth")
+MISSING=false
 
-if [ "$NEED_DOWNLOAD" = true ]; then
+for f in "${REQUIRED_FILES[@]}"; do
+    if [ ! -f "/app/$f" ]; then
+        MISSING=true
+        break
+    fi
+done
+
+if [ "$MISSING" = true ]; then
     echo "Downloading model files from Hugging Face bucket..."
     hf sync hf://buckets/KaranGulve/KrishishaktiModels /tmp/hf_bucket
 
-    [ ! -f "/app/yield_model.pkl" ] && mv /tmp/hf_bucket/yield_model.pkl /app/yield_model.pkl && echo "yield_model.pkl ready."
-    [ ! -f "/app/crop_model.pkl" ] && mv /tmp/hf_bucket/crop_model.pkl /app/crop_model.pkl && echo "crop_model.pkl ready."
-    [ ! -f "/app/plant_disease_model.pth" ] && mv /tmp/hf_bucket/plant_disease_model.pth /app/plant_disease_model.pth && echo "plant_disease_model.pth ready."
+    for f in "${REQUIRED_FILES[@]}"; do
+        if [ ! -f "/app/$f" ]; then
+            if [ ! -f "/tmp/hf_bucket/$f" ]; then
+                echo "ERROR: $f not found in HF bucket. Upload it first."
+                exit 1
+            fi
+            mv "/tmp/hf_bucket/$f" "/app/$f"
+            echo "$f ready."
+        fi
+    done
 
     rm -rf /tmp/hf_bucket
 fi
